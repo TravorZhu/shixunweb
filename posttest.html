@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" id="u">
+<input type="password" id="p">
+
+
+<button id="s">submit</button>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/core.js" integrity="sha256-36hEPcG8mKookfvUVvEqRkpdYV1unP6wvxIqbgdeVhk=" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script>
+    $(function () {
+        $("#s").unbind();
+        $("#s").click(function () {
+
+            var data = {
+                "username": $("#u").val(),
+                "password": $("#p").val(),
+            };
+            console.log(data);
+            $.ajaxSetup({async: true});
+            // $.post(
+            //     "/login", data, function (d) {
+            //         if (d.data("error") == null && d.data("token") != null) {
+            //             var token = d.data("token");
+            //             var type = d.data("type");
+            //             Cookies.set('session-token', token);
+            //             Cookies.set('session-type', type);
+            //             switch (d.data("type")) {
+            //                 case "student":
+            //                     $(location).prop('href', '/student');
+            //                     break;
+            //                 case "teacher":
+            //                     $(location).prop('href', '/teacher');
+            //                     break;
+            //                 case "admin":
+            //                     $(location).prop('href', '/admin');
+            //                     break;
+            //             }
+            //         }
+            //     }, "json");
+        })
+    })
+</script>
+
+</body>
+</html>
