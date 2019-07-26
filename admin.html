@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>AdminLTE 2 | Dashboard</title>
+    <title>管理员系统</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -191,6 +191,13 @@
             $.get("admin/showalluser.html",function (e) {
                 // console.log(e);
                 $(".content-wrapper").html(e)
+            });
+        });
+        $("#add-course").click(function () {
+            $("li>ul>li").removeClass("active");
+            $("#add-course").addClass("active");
+            $.get("admin/addcourse.html",function (e) {
+                $(".content-wrapper").html(e);
             });
         });
 
