@@ -36,7 +36,7 @@
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">请输入你的账号密码登录</p>
-            <div class="callout callout-danger" hidden="hidden">404 无法访问</div>
+            <div class="callout callout-danger" hidden="hidden">无法访问服务器</div>
 
             <div class="form-group has-feedback">
                 <input type="text" class="form-control" placeholder="账号" id="username">
@@ -72,6 +72,8 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="plugins/iCheck/icheck.min.js"></script>
+<!-- JQ COOKIE -->
+<script type="text/javascript" src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script>
     $(function () {
         $('input').iCheck({
@@ -86,34 +88,52 @@
         $("#login").unbind("click");
         $("#login").click(function () {
             var data = {
-                "username": $("#username").val(),
-                "password": $("#password").val(),
+                "uid": parseInt($("#username").val()),
+                "upass": $("#password").val(),
+                "usertype":""
             };
-            console.log(data);
             $.ajaxSetup({async :true});
-            $.post(
-                "/login", data, function (d) {
-                    if (d.data("error") == null && d.data("token") != null) {
-                        var token = d.data("token");
-                        var type = d.data("type");
-                        Cookies.set('session-token', token);
-                        Cookies.set('session-type', type);
-                        switch (d.data("type")) {
+            $.ajax({
+                // method: "POST",
+                type:"POST",
+                url: 'http://120.78.78.174:6233/user/login',
+                // async: false, // 使用同步方式
+                // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
+                // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
+                // headers:{"Authorization":""},
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                // dataType: "json",
+                success: function(d) {
+                    if (d.msg == "OK") {
+                        var token = d.data.uniqueToken;
+                        var type = d.data.usertype;
+
+
+                        $.cookie("token",token);
+                        $.cookie("type",type);
+
+                        switch (type) {
                             case "student":
-                                $(location).prop('href', '/student');
+                                $(location).prop('href', 'student');
                                 break;
                             case "teacher":
-                                $(location).prop('href', '/teacher');
+                                $(location).prop('href', 'teacher');
                                 break;
                             case "admin":
-                                $(location).prop('href', '/admin');
+                                $(location).prop('href', 'admin.html');
                                 break;
                         }
                     }else {
-                        $(".callout-danger").text("error");
+                        $(".callout-danger").text(d.msg);
+                        $(".callout-danger").show();
                     }
-                }, "json");
-            $(".callout-danger").show();
+                },// 注意不要在此行增加逗号,
+                error:function (e) {
+                    $(".callout-danger").show();
+                }
+            });
+
         });
     })
 </script>

@@ -1,0 +1,201 @@
+<section class="content-header">
+    <h1>
+        删除/修改用户
+        <small>Advanced form element</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>主页</a></li>
+        <li><a href="#">用户操作</a></li>
+        <li class="active">删除修改用户</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">所有用户</h3>
+                    <div class="box-tools">
+                        <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>用户类型</th>
+                            <th>用户名</th>
+                            <th colspan="2">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>123456</td>
+                            <td>管理员</td>
+                            <td>丁奕晖</td>
+                            <td>
+                                <button class="btn btn-success">修改</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger">删除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>123456</td>
+                            <td>管理员</td>
+                            <td>丁奕晖</td>
+                            <td>
+                                <button class="btn btn-success">修改</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger">删除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>123456</td>
+                            <td>管理员</td>
+                            <td>丁奕晖</td>
+                            <td>
+                                <button class="btn btn-success">修改</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger">删除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>123456</td>
+                            <td>管理员</td>
+                            <td>丁奕晖</td>
+                            <td>
+                                <button class="btn btn-success">修改</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger">删除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>123456</td>
+                            <td>管理员</td>
+                            <td>丁奕晖</td>
+                            <td>
+                                <button class="btn btn-success">修改</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger">删除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>123456</td>
+                            <td>管理员</td>
+                            <td>丁奕晖</td>
+                            <td>
+                                <button class="btn btn-success">修改</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger">删除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>123456</td>
+                            <td>管理员</td>
+                            <td>丁奕晖</td>
+                            <td>
+                                <button class="btn btn-success">修改</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger">删除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>123456</td>
+                            <td>管理员</td>
+                            <td>丁奕晖</td>
+                            <td>
+                                <button class="btn btn-success">修改</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger">删除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>123456</td>
+                            <td>管理员</td>
+                            <td>丁奕晖</td>
+                            <td>
+                                <button class="btn btn-success">修改</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger">删除</button>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                        <tfoot>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>用户类型</th>
+                            <th>用户名</th>
+                            <th colspan="2">操作</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a href="#">&laquo;</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+</section>
+<script>
+    $(function () {
+
+    });
+    var data = {
+        "token": $.cookie("token")
+    };
+    $.ajax({
+        // method: "POST",
+        type:"POST",
+        url: 'http://120.78.78.174:6233/admin/getAllUser',
+        // async: false, // 使用同步方式
+        // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
+        // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
+        // headers:{"Authorization":""},
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        // dataType: "json",
+        success: function(d) {
+            if (d.msg == "OK") {
+                d.data().forEach(function (item,index) {
+                    console.log(item+"---"+index);
+                })
+
+            }else {
+                $(".callout-danger").text(d.msg);
+                $(".callout-danger").show();
+            }
+        },// 注意不要在此行增加逗号,
+        error:function (e) {
+            $(".callout-danger").show();
+        }
+    });
+</script>
