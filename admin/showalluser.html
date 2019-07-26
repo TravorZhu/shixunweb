@@ -27,6 +27,8 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+                    <div class="alert alert-success" hidden="hidden">添加成功</div>
+                    <div class="alert alert-error" hidden="hidden"></div>
                     <table id="example2" class="table table-bordered table-hover">
                         <thead>
                         <tr>
@@ -37,105 +39,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>123456</td>
-                            <td>管理员</td>
-                            <td>丁奕晖</td>
-                            <td>
-                                <button class="btn btn-success">修改</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger">删除</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>123456</td>
-                            <td>管理员</td>
-                            <td>丁奕晖</td>
-                            <td>
-                                <button class="btn btn-success">修改</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger">删除</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>123456</td>
-                            <td>管理员</td>
-                            <td>丁奕晖</td>
-                            <td>
-                                <button class="btn btn-success">修改</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger">删除</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>123456</td>
-                            <td>管理员</td>
-                            <td>丁奕晖</td>
-                            <td>
-                                <button class="btn btn-success">修改</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger">删除</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>123456</td>
-                            <td>管理员</td>
-                            <td>丁奕晖</td>
-                            <td>
-                                <button class="btn btn-success">修改</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger">删除</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>123456</td>
-                            <td>管理员</td>
-                            <td>丁奕晖</td>
-                            <td>
-                                <button class="btn btn-success">修改</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger">删除</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>123456</td>
-                            <td>管理员</td>
-                            <td>丁奕晖</td>
-                            <td>
-                                <button class="btn btn-success">修改</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger">删除</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>123456</td>
-                            <td>管理员</td>
-                            <td>丁奕晖</td>
-                            <td>
-                                <button class="btn btn-success">修改</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger">删除</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>123456</td>
-                            <td>管理员</td>
-                            <td>丁奕晖</td>
-                            <td>
-                                <button class="btn btn-success">修改</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger">删除</button>
-                            </td>
-                        </tr>
+
 
                         </tbody>
                         <tfoot>
@@ -167,35 +71,154 @@
 </section>
 <script>
     $(function () {
+        console.log("print alot");
 
-    });
-    var data = {
-        "token": $.cookie("token")
-    };
-    $.ajax({
-        // method: "POST",
-        type:"POST",
-        url: 'http://120.78.78.174:6233/admin/getAllUser',
-        // async: false, // 使用同步方式
-        // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
-        // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
-        // headers:{"Authorization":""},
-        data: JSON.stringify(data),
-        contentType: "application/json; charset=utf-8",
-        // dataType: "json",
-        success: function(d) {
-            if (d.msg == "OK") {
-                d.data().forEach(function (item,index) {
-                    console.log(item+"---"+index);
-                })
 
-            }else {
-                $(".callout-danger").text(d.msg);
+        // console.log("print alot");
+        var data = {
+            "uniqueToken": $.cookie("token")
+        };
+        // console.log("print");
+        $.ajax({
+            // method: "POST",
+            type: "POST",
+            url: 'http://120.78.78.174:6233/admin/getAllUser',
+            async: false, // 使用同步方式
+            // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
+            // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
+            // headers:{"Authorization":""},
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            // dataType: "json",
+            success: function (d) {
+                if (d.msg == "OK") {
+                    var user = new Array();
+                    d.data.forEach(function (item, index) {
+                        let a = {usertype: item.usertype, uname: item.uname};
+
+
+                        user[item.uid] = a;
+                        // console.log(item.uid + "---" + index);
+                        $("tbody").append($("<tr>\n" +
+                            "                            <td>" + item.uid + "</td>\n" +
+                            "                            <td>" + item.usertype + "</td>\n" +
+                            "                            <td>" + item.uname + "</td>\n" +
+                            "                            <td>\n" +
+                            "                                <button class=\"btn btn-success\" id='" + item.uid + "'>修改</button>\n" +
+                            "                            </td>\n" +
+                            "                            <td>\n" +
+                            "                                <button class=\"btn btn-danger\"  id='" + item.uid + "'>删除</button>\n" +
+                            "                            </td>\n" +
+                            "                        </tr>"))
+                    })
+                    console.log(user)
+
+                } else {
+                    $(".callout-danger").text(d.msg);
+                    $(".callout-danger").show();
+                }
+            },// 注意不要在此行增加逗号,
+            error: function (e) {
                 $(".callout-danger").show();
             }
-        },// 注意不要在此行增加逗号,
-        error:function (e) {
-            $(".callout-danger").show();
-        }
+        });
+        console.log($(".btn-danger"));
+        // $("button[class=btn-success]")
+        $(".btn-danger").click(function (e) {
+            console.log(e);
+
+            $(".alert").hide();
+            var data = {
+                "uniqueToken": $.cookie("token"),
+                "uid": e.currentTarget.id
+            };
+            $.ajax({
+                // method: "POST",
+                type: "POST",
+                url: 'http://120.78.78.174:6233/admin/delUser',
+                // async: false, // 使用同步方式
+                // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
+                // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
+                // headers:{"Authorization":""},
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                // dataType: "json",
+                success: function (d) {
+                    if (d.msg == "OK") {
+                        $(".alert-success").show();
+                        $(".alert-success").text("删除成功");
+                    } else {
+                        $(".alert-error").text(d.msg);
+                        $(".alert-error").show();
+                    }
+                },// 注意不要在此行增加逗号,
+                error: function (e) {
+                    $(".alert-error").text("服务器连接失败");
+                    $(".alert-error").show();
+                }
+            })
+        });
     });
+    var data = {
+        "uniqueToken": $.cookie("token")
+    };
+    console.log("print");
+
+    var clickmodi = function (e) {
+
+    };
+
+
+</script>
+<script>
+    console.log("print alot");
+    $(".btn-danger").click(function (e) {
+        console.log(e);
+
+        $(".alert").hide();
+        var data = {
+            "uniqueToken": $.cookie("token"),
+            "uid": e.currentTarget.id
+        };
+        $.ajax({
+            // method: "POST",
+            type: "POST",
+            url: 'http://120.78.78.174:6233/admin/delUser',
+            // async: false, // 使用同步方式
+            // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
+            // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
+            // headers:{"Authorization":""},
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            // dataType: "json",
+            success: function (d) {
+                if (d.msg == "OK") {
+                    $(".alert-success").show();
+                    $(".alert-success").text("删除成功");
+                } else {
+                    $(".alert-error").text(d.msg);
+                    $(".alert-error").show();
+                }
+            },// 注意不要在此行增加逗号,
+            error: function (e) {
+                $(".alert-error").text("服务器连接失败");
+                $(".alert-error").show();
+            }
+        })
+    });
+    console.log("print alot");
+    $(".btn-success").click(function (e) {
+
+        var edited_userid = e.currentTarget.id;
+            $.get("admin/edituser.html",function (e) {
+                // console.log(e);
+                $(".content-wrapper").html(e)
+            });
+    });
+
+</script>
+
+<script>
+    console.log(2);
+    console.log($(".btn-danger"));
 </script>
