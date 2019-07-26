@@ -1,0 +1,142 @@
+<section class="content-header">
+    <h1>
+        添加用户
+        <!--        <small>Advanced form element</small>-->
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>主页</a></li>
+        <li><a href="#">课程操作</a></li>
+        <li class="active">添加课程</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">添加课程</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="alert alert-success" hidden="hidden">添加成功</div>
+                    <div class="alert alert-error" hidden="hidden"></div>
+                    <form role="form">
+
+<!--                        课程名。老师id。课程id。上课时间。课程信息-->
+                        <!-- text input -->
+                        <div class="form-group" id="cid-form">
+                            <label>课程ID</label>
+                            <input id="cid" type="text" class="form-control" placeholder="输入 ...">
+                        </div>uid
+                        <div class="form-group" id="cname-form">
+                            <label>课程名</label>
+                            <input id="cname" type="text" class="form-control" placeholder="输入 ...">
+                        </div>
+                        <div class="form-group" id="tid-form">
+                            <label>老师ID</label>
+                            <input id="tid" type="text" class="form-control" placeholder="输入 ...">
+                        </div>
+                        <div class="form-group" id="ctime-form">
+                            <lable>上课时间</lable>
+                            <input id="ctime" type="text" class="form-control" placeholder="输入...">
+                        </div>
+                        <div class="form-group" id="cinfo-form">
+                            <label>课程信息</label>
+                            <input id="cinfo" type="text" class="form-control" placeholder="请输入...">
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">提交</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <script>
+            $(function () {
+                console.log("outpustsomething");
+                $("form").remove
+                $("form").submit(function () {
+                    var data = {
+                        "uniqueToken": $.cookie("token"),
+                        "cid": $("#cid").val(),
+                        "cname":$("#cname").val(),
+                        "tid":$("#tid").val(),
+                        "ctime":$("#ctime").val(),
+                        "info":$("#cinfo").val(),
+
+                    };
+                    $(".control-label").remove();
+                    $(".help-block").remove();
+                    $(".form-group").removeClass("has-error");
+
+                    if (data.cid=="")
+                    {
+                        $("#cid").parent().addClass("has-error");
+                        $("#cid").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
+                        $("#cid").parent().append($("<span class=\"help-block\">不能为空</span>"));
+
+                    }
+                    if (data.cname=="")
+                    {
+                        $("#cname").parent().addClass("has-error");
+                        $("#cname").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
+                        $("#cname").parent().append($("<span class=\"help-block\">不能为空</span>"));
+
+                    }
+                    if (data.tid =="")
+                    {
+                        $("#tid").parent().addClass("has-error");
+                        $("#tid").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
+                        $("#tid").parent().append($("<span class=\"help-block\">不能为空</span>"));
+
+                    }
+                    if (data.ctime=="")
+                    {
+                        $("#ctime").parent().addClass("has-error");
+                        $("#ctime").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
+                        $("#ctime").parent().append($("<span class=\"help-block\">不能为空</span>"));
+                    }
+                    if (data.info = "")
+                    {
+                        $("#cinfo").parent().addClass("has-error");
+                        $("#cinfo").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
+                        $("#cinfo").parent().append($("<span class=\"help-block\">不能为空</span>"));
+                    }
+                    console.log(data);
+                    $(".alert").hide();
+                    $.ajax({
+                        // method: "POST",
+                        type: "POST",
+                        url: 'http://120.78.78.174:6233/admin/addCourse',
+                        // async: false, // 使用同步方式
+                        // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
+                        // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
+                        // headers:{"Authorization":""},
+                        data: JSON.stringify(data),
+                        contentType: "application/json; charset=utf-8",
+                        // dataType: "json",
+                        success: function (d) {
+                            console.log(d);
+                            console.log(d.msg);
+                            console.log(d);
+                            if (d.msg == "OK") {
+                                $(".alert-success").show();
+                            } else {
+                                $(".alert-error").text(d.msg);
+                                $(".alert-error").show();
+                            }
+                        },// 注意不要在此行增加逗号,
+                        error: function (e) {
+                            $(".alert-error").text("服务器访问出错");
+                            $(".callout-danger").show();
+                        }
+                    });
+                })
+            })
+        </script>
+        <!-- /.col-->
+    </div>
+    <!-- ./row -->
+</section>
