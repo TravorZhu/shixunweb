@@ -58,7 +58,6 @@
         <script>
             $(function () {
                 $(#uid).
-
                 console.log("outpustsomething");
                 $("form").remove
                 $("form").submit(function () {
@@ -106,7 +105,7 @@
                     $.ajax({
                         // method: "POST",
                         type: "POST",
-                        url: 'http://120.78.78.174:6233/admin/addUser',
+                        url: 'http://120.78.78.174:6233/admin/updateUser',
                         // async: false, // 使用同步方式
                         // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
                         // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}

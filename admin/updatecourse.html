@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        添加用户
+        添加课程
         <!--        <small>Advanced form element</small>-->
     </h1>
     <ol class="breadcrumb">
@@ -22,32 +22,32 @@
                     <div class="alert alert-error" hidden="hidden"></div>
                     <form role="form">
 
-                        <div class="form-group" id="usertype-form">
-                            <label>用户类型</label>
-                            <select class="form-control" id="usertype">
-                                <option value="admin">管理员</option>
-                                <option value="teacher">老师</option>
-                                <option value="student">学生</option>
-                            </select>
-                        </div>
 
+                        <!--                        课程名。老师id。课程id。上课时间。课程信息-->
                         <!-- text input -->
-                        <div class="form-group" id="uid-form">
-                            <label>用户ID</label>
-                            <input id="uid" type="text" class="form-control" placeholder="输入 ..." disabled>
+                        <div class="form-group" id="cid-form">
+                            <label>课程ID</label>
+                            <input id="cid" type="text" class="form-control" placeholder="输入 ...">
                         </div>
-                        <div class="form-group" id="upass-form">
-                            <label>密码</label>
-                            <input id="upass" type="password" class="form-control" placeholder="输入 ...">
+                        <div class="form-group" id="cname-form">
+                            <label>课程名</label>
+                            <input id="cname" type="text" class="form-control" placeholder="输入 ...">
                         </div>
-                        <div class="form-group" id="uname-form">
-                            <label>名字</label>
-                            <input id="uname" type="text" class="form-control" placeholder="输入 ...">
+                        <div class="form-group" id="tid-form">
+                            <label>老师ID</label>
+                            <input id="tid" type="text" class="form-control" placeholder="输入 ...">
+                        </div>
+                        <div class="form-group" id="ctime-form">
+                            <label>上课时间</label>
+                            <input id="ctime" type="text" class="form-control" placeholder="输入...">
+                        </div>
+                        <div class="form-group" id="cinfo-form">
+                            <label>课程信息</label>
+                            <input id="cinfo" type="text" class="form-control" placeholder="请输入...">
                         </div>
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">提交</button>
                         </div>
-
 
                     </form>
                 </div>
@@ -64,49 +64,56 @@
                 $("form").submit(function () {
                     var data = {
                         "uniqueToken": $.cookie("token"),
-                        "uid": parseInt($("#uid").val()),
-                        "usertype": $("#usertype").val(),
-                        "upass": $("#upass").val(),
-                        "uname": $("#uname").val(),
+                        "cid": $("#cid").val(),
+                        "cname":$("#cname").val(),
+                        "tid":$("#tid").val(),
+                        "ctime":$("#ctime").val(),
+                        "info":$("#cinfo").val(),
                     };
                     $(".control-label").remove();
                     $(".help-block").remove();
                     $(".form-group").removeClass("has-error");
 
-                    if (data.uid=="")
+                    if (data.cid=="")
                     {
-                        $("#uid").parent().addClass("has-error");
-                        $("#uid").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
-                        $("#uid").parent().append($("<span class=\"help-block\">不能为空</span>"));
+                        $("#cid").parent().addClass("has-error");
+                        $("#cid").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
+                        $("#cid").parent().append($("<span class=\"help-block\">不能为空</span>"));
 
                     }
-                    if (data.usertype=="")
+                    if (data.cname=="")
                     {
-                        $("#usertype").parent().addClass("has-error");
-                        $("#usertype").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
-                        $("#usertype").parent().append($("<span class=\"help-block\">不能为空</span>"));
+                        $("#cname").parent().addClass("has-error");
+                        $("#cname").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
+                        $("#cname").parent().append($("<span class=\"help-block\">不能为空</span>"));
 
                     }
-                    if (data.upass=="")
+                    if (data.tid =="")
                     {
-                        $("#upass").parent().addClass("has-error");
-                        $("#upass").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
-                        $("#upass").parent().append($("<span class=\"help-block\">不能为空</span>"));
+                        $("#tid").parent().addClass("has-error");
+                        $("#tid").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
+                        $("#tid").parent().append($("<span class=\"help-block\">不能为空</span>"));
 
                     }
-                    if (data.uname=="")
+                    if (data.ctime=="")
                     {
-                        $("#uname").parent().addClass("has-error");
-                        $("#uname").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
-                        $("#uname").parent().append($("<span class=\"help-block\">不能为空</span>"));
-
+                        $("#ctime").parent().addClass("has-error");
+                        $("#ctime").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
+                        $("#ctime").parent().append($("<span class=\"help-block\">不能为空</span>"));
                     }
+                    if (data.info = "")
+                    {
+                        $("#cinfo").parent().addClass("has-error");
+                        $("#cinfo").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
+                        $("#cinfo").parent().append($("<span class=\"help-block\">不能为空</span>"));
+                    }
+
                     console.log(data);
                     $(".alert").hide();
                     $.ajax({
                         // method: "POST",
                         type: "POST",
-                        url: 'http://120.78.78.174:6233/admin/addUser',
+                        url: 'http://120.78.78.174:6233/admin/updateCourse',
                         // async: false, // 使用同步方式
                         // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
                         // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
