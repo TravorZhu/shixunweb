@@ -1,0 +1,86 @@
+<section class="content-header">
+    <h1>
+        成绩查询
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>主页</a></li>
+        <li><a href="#" id="get-to-search-score">成绩查询</a></li>
+        <li><a class="course-name" href="#"></a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title course-name">课程名</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="alert alert-success" hidden="hidden">添加成功</div>
+                    <div class="alert alert-error" hidden="hidden"></div>
+                    <table class="table table-bordered table-hover" id="example2">
+                        <thead>
+                        <tr>
+                            <th>项目</th>
+                            <th>成绩</th>
+                            <th>成绩占比(百分之)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <th>考试</th>
+                            <th>80</th>
+                            <th>30</th>
+                        </tr>
+                        <tr>
+                            <th>考试</th>
+                            <th>80</th>
+                            <th>30</th>
+                        </tr>
+                        <tr>
+                            <th>作业</th>
+                            <th>80</th>
+                            <th>10</th>
+                        </tr>
+
+
+                        </tbody>
+                        <tfoot>
+
+                        <tr>
+                            <th>总成绩</th>
+
+                            <th colspan="2">80</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+</section>
+
+<script>
+    $(".course-name").html(selected_courseid);
+    $("#get-to-search-score").click(
+        function () {
+            $.get("/student/show-all-score.html", function (e) {
+                    console.log(e);
+                    $(".content-wrapper").html(e)
+                }
+            )
+        });
+    for (var k in all_course_score[selected_courseid]["exam-score"]) {
+
+        $("tbody").append("<tr>\n" +
+            "                            <th>考试</th>\n" +
+            "                            <th>80</th>\n" +
+            "                            <th>30</th>\n" +
+            "                        </tr>")
+    }
+</script>

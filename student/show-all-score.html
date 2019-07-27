@@ -1,0 +1,180 @@
+<section class="content-header">
+    <h1>
+        成绩查询
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>主页</a></li>
+        <li><a href="#" id="get-to-search-score">成绩查询</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">总成绩</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="alert alert-success" hidden="hidden">添加成功</div>
+                    <div class="alert alert-error" hidden="hidden"></div>
+                    <table class="table table-bordered table-hover" id="example2">
+                        <thead>
+                        <tr>
+                            <th>课程</th>
+                            <th>老师</th>
+                            <th>成绩</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                        <tfoot>
+
+                        <tr>
+                            <th>平均</th>
+
+                            <th colspan="2" id="adv">80</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+</section>
+
+<script>
+
+
+    var selected_courseid;
+    var all_course_score = {};
+
+    var data = {
+        "uniqueToken": $.cookie("token")
+    };
+    // 请求获取所有已选课程
+    $.ajax({
+        // method: "POST",
+        type: "POST",
+        url: 'http://120.78.78.174:6233/stu/getAllCourse',
+
+        async: false, // 使用同步方式
+        // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
+        // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
+        // headers:{"Authorization":""},
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        // dataType: "json",
+        success: function (d) {
+            if (d.status == 200) {
+                d.data.forEach(function (item, index) {
+                    all_course_score[item.cid] = {cname: item.cname, uname: item.uname, totalscore: 0};
+                });
+
+            } else {
+                $(".alert-error").text(d.msg);
+                $(".alert-error").show();
+            }
+        },// 注意不要在此行增加逗号,
+        error: function (e) {
+            $(".alert-error").show();
+        }
+    });
+
+    //请求作业成绩
+    for (var k in all_course_score) {
+        data["cid"] = k;
+        $.ajax({
+            // method: "POST",
+            type: "POST",
+            url: 'http://120.78.78.174:6233/stu/getHomeworkScore',
+
+            async: false, // 使用同步方式
+            // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
+            // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
+            // headers:{"Authorization":""},
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            // dataType: "json",
+            success: function (d) {
+                if (d.status = 200) {
+
+                    all_course_score[k]["homework-score"] = d.data;
+                    d.data.forEach(function (item, index) {
+                        all_course_score[k]["totalscore"] += 0.01 * item.score * item.percentage;
+                    })
+                } else {
+                    $(".alert-error").text(d.msg);
+                    $(".alert-error").show();
+                }
+            },// 注意不要在此行增加逗号,
+            error: function (e) {
+                $(".alert-error").show();
+            }
+        });
+    }
+
+
+    //请求考试成绩
+    for (var k in all_course_score) {
+        data["cid"] = k;
+        $.ajax({
+            // method: "POST",
+            type: "POST",
+            url: 'http://120.78.78.174:6233/stu/getExamScore',
+
+            async: false, // 使用同步方式
+            // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
+            // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
+            // headers:{"Authorization":""},
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            // dataType: "json",
+            success: function (d) {
+                if (d.status = 200) {
+
+                    all_course_score[k]["exam-score"] = d.data;
+                    d.data.forEach(function (item, index) {
+                        all_course_score[k]["totalscore"] += 0.01 * item.score * item.percentage;
+                    })
+                } else {
+                    $(".alert-error").text(d.msg);
+                    $(".alert-error").show();
+                }
+            },// 注意不要在此行增加逗号,
+            error: function (e) {
+                $(".alert-error").show();
+            }
+        });
+    }
+    ;
+    var sum = 0;
+    var count = 0;
+    for (k in all_course_score) {
+
+
+        var t = all_course_score[k];
+        sum += t.totalscore;
+        count++;
+        console.log(k);
+        console.log(t);
+        $("tbody").append("<tr class=\"get-course-score\" id=\"" + k + "\">\n" +
+            "                            <th>" + t.cname + "</th>\n" +
+            "                            <th>" + t.uname + "</th>\n" +
+            "                            <th>" + t.totalscore + "</th>\n" +
+            "                        </tr>")
+    }
+    $("#adv").text(1.0 * sum / count);
+    $(".get-course-score").click(function (e) {
+        selected_courseid = e.currentTarget.id;
+
+        $.get("student/search-score.html", function (e) {
+
+            $(".content-wrapper").html(e)
+        });
+    });
+</script>

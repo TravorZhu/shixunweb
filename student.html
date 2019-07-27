@@ -90,34 +90,13 @@
 
                     </li>
                     <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-files-o"></i>
-                            <span>个人管理</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li id="add-course"><a href="#"><i class="fa fa-circle-o"></i>个人基本信息</a></li>
-                            <li id="update-course"><a href="#"><i class="fa fa-circle-o"></i>密码更改</a></li>
-
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href="#">
+                        <a href="#" id="search-score">
                             <i class="fa fa-laptop"></i>
                             <span>成绩查询</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
-                        <ul class="treeview-menu">
-                            <li id="add-course"><a href="#"><i class="fa fa-circle-o"></i>大一</a></li>
-                            <li id="update-course"><a href="#"><i class="fa fa-circle-o"></i>大二</a></li>
-                            <li id="add-course"><a href="#"><i class="fa fa-circle-o"></i>大三</a></li>
-                            <li id="update-course"><a href="#"><i class="fa fa-circle-o"></i>大四</a></li>
-
-                        </ul>
                     </li>
                     <li class="treeview">
                         <a href="#">
@@ -130,19 +109,19 @@
 
                     </li>
                     <li class="treeview">
-                        <a href="#">
+                        <a href="#" id="select-course">
                             <i class="fa fa-th"></i>
                             <span>网上选课</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
+                            <!--                            <span class="pull-right-container">-->
+                            <!--                                <i class="fa fa-angle-left pull-right"></i>-->
                             </span>
                         </a>
-                        <ul class="treeview-menu">
-                            <li id="add-course"><a href="#"><i class="fa fa-circle-o"></i>体育选项</a></li>
-                            <li id="update-course"><a href="#"><i class="fa fa-circle-o"></i>大学英语</a></li>
-                            <li id="add-course"><a href="#"><i class="fa fa-circle-o"></i>专业课程</a></li>
+                        <!--                        <ul class="treeview-menu">-->
+                        <!--                            <li id="add-course"><a href="#"><i class="fa fa-circle-o"></i>体育选项</a></li>-->
+                        <!--                            <li id="update-course"><a href="#"><i class="fa fa-circle-o"></i>大学英语</a></li>-->
+                        <!--                            <li id="add-course"><a href="#"><i class="fa fa-circle-o"></i>专业课程</a></li>-->
 
-                        </ul>
+                        <!--                        </ul>-->
                     </li>
                 </ul>
             </section>
@@ -160,17 +139,36 @@
 <script type="text/javascript" src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script>
     $(function () {
+        $("#search-score").click(function () {
+            $("li>ul>li").removeClass("active");
+            $("#add-user").addClass("active");
+            $.get("student/show-all-score.html", function (e) {
+                // console.log(e);
+                $(".content-wrapper").html(e)
+            });
+        });
+        $("#add-user").click(function () {
+            $.get("admin/adduser.html", function (e) {
+                // console.log(e);
+                $(".content-wrapper").html(e)
+            });
+        });
         $.get("student/notice.html",function (e) {
             // console.log(e);
             $(".content-wrapper").html(e)
         });
 
-        $("#add-user").click(function () {
-            $.get("admin/adduser.html",function (e) {
-                // console.log(e);
-                $(".content-wrapper").html(e)
-            });
-        })
+        $("#select-course").click(
+            function (e) {
+                $("li>ul>li").removeClass("active");
+                $("#select-course").addClass("active");
+                $.get("student/select-course.html", function (e) {
+                    $(".content-wrapper").html(e);
+                })
+            }
+        )
+
+
 
     })
 </script>
