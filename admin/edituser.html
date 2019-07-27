@@ -38,7 +38,7 @@
                         </div>
                         <div class="form-group" id="upass-form">
                             <label>密码</label>
-                            <input id="upass" type="password" class="form-control" placeholder="输入 ...">
+                            <input id="upass" type="password" class="form-control" placeholder="**************">
                         </div>
                         <div class="form-group" id="uname-form">
                             <label>名字</label>
@@ -55,85 +55,108 @@
             </div>
             <!-- /.box -->
         </div>
-        <script>
-            $(function () {
-                $(#uid).
 
-                console.log("outpustsomething");
-                $("form").remove
-                $("form").submit(function () {
-                    var data = {
-                        "uniqueToken": $.cookie("token"),
-                        "uid": parseInt($("#uid").val()),
-                        "usertype": $("#usertype").val(),
-                        "upass": $("#upass").val(),
-                        "uname": $("#uname").val(),
-                    };
-                    $(".control-label").remove();
-                    $(".help-block").remove();
-                    $(".form-group").removeClass("has-error");
-
-                    if (data.uid=="")
-                    {
-                        $("#uid").parent().addClass("has-error");
-                        $("#uid").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
-                        $("#uid").parent().append($("<span class=\"help-block\">不能为空</span>"));
-
-                    }
-                    if (data.usertype=="")
-                    {
-                        $("#usertype").parent().addClass("has-error");
-                        $("#usertype").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
-                        $("#usertype").parent().append($("<span class=\"help-block\">不能为空</span>"));
-
-                    }
-                    if (data.upass=="")
-                    {
-                        $("#upass").parent().addClass("has-error");
-                        $("#upass").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
-                        $("#upass").parent().append($("<span class=\"help-block\">不能为空</span>"));
-
-                    }
-                    if (data.uname=="")
-                    {
-                        $("#uname").parent().addClass("has-error");
-                        $("#uname").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
-                        $("#uname").parent().append($("<span class=\"help-block\">不能为空</span>"));
-
-                    }
-                    console.log(data);
-                    $(".alert").hide();
-                    $.ajax({
-                        // method: "POST",
-                        type: "POST",
-                        url: 'http://120.78.78.174:6233/admin/addUser',
-                        // async: false, // 使用同步方式
-                        // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
-                        // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
-                        // headers:{"Authorization":""},
-                        data: JSON.stringify(data),
-                        contentType: "application/json; charset=utf-8",
-                        // dataType: "json",
-                        success: function (d) {
-                            console.log(d);
-                            console.log(d.msg);
-                            console.log(d);
-                            if (d.msg == "OK") {
-                                $(".alert-success").show();
-                            } else {
-                                $(".alert-error").text(d.msg);
-                                $(".alert-error").show();
-                            }
-                        },// 注意不要在此行增加逗号,
-                        error: function (e) {
-                            $(".alert-error").text("服务器访问出错");
-                            $(".callout-danger").show();
-                        }
-                    });
-                })
-            })
-        </script>
         <!-- /.col-->
     </div>
     <!-- ./row -->
 </section>
+
+<script>
+    $(function () {
+        var auser=user[edited_userid];
+        $("#uid").val(edited_userid);
+        // $("#upass").val(edited_userid);
+        $("#uname").val(auser.uname);
+        $("option[value='"+auser.type+"']").prop("selected",true);
+        // console.log("something");
+        console.log(auser);
+        // console.log(edited_userid);
+
+
+
+        console.log("outpustsomething");
+        $("form").remove
+        $("form").submit(function () {
+            var data = {
+                "uniqueToken": $.cookie("token"),
+                "uid": parseInt($("#uid").val()),
+                "usertype": $("#usertype").val(),
+                "upass": $("#upass").val(),
+                "uname": $("#uname").val(),
+            };
+            var da={};
+            da["uniqueToken"]=data["uniqueToken"];
+            $(".control-label").remove();
+            $(".help-block").remove();
+            $(".form-group").removeClass("has-error");
+
+            if (data.uid=="")
+            {
+                $("#uid").parent().addClass("has-error");
+                $("#uid").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
+                $("#uid").parent().append($("<span class=\"help-block\">不能为空</span>"));
+                return;
+
+            }
+            if (data.usertype=="")
+            {
+                $("#usertype").parent().addClass("has-error");
+                $("#usertype").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
+                $("#usertype").parent().append($("<span class=\"help-block\">不能为空</span>"));
+                return;
+
+            }
+            // if (data.upass=="")
+            // {
+            //     $("#upass").parent().addClass("has-error");
+            //     $("#upass").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
+            //     $("#upass").parent().append($("<span class=\"help-block\">不能为空</span>"));
+            //
+            // }
+            if (data.uname=="")
+            {
+                $("#uname").parent().addClass("has-error");
+                $("#uname").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
+                $("#uname").parent().append($("<span class=\"help-block\">不能为空</span>"));
+                return;
+
+            }
+            if (data.uname!=auser.uname)
+                da["uname"]=data.uname;
+            if (data.usertype!=auser.usertype)
+                da["uname"]=data.uname;
+            if (data.uname!=auser.uname)
+                da["uname"]=data.uname;
+
+            console.log(data);
+            $(".alert").hide();
+            $.ajax({
+                // method: "POST",
+                type: "POST",
+                url: 'http://120.78.78.174:6233/admin/updateUser',
+                // async: false, // 使用同步方式
+                // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
+                // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
+                // headers:{"Authorization":""},
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                // dataType: "json",
+                success: function (d) {
+                    console.log(d);
+                    console.log(d.msg);
+                    console.log(d);
+                    if (d.msg == "OK") {
+                        $(".alert-success").show();
+                    } else {
+                        $(".alert-error").text(d.msg);
+                        $(".alert-error").show();
+                    }
+                },// 注意不要在此行增加逗号,
+                error: function (e) {
+                    $(".alert-error").text("服务器访问出错");
+                    $(".callout-danger").show();
+                }
+            });
+        })
+    })
+</script>
