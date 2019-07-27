@@ -71,32 +71,28 @@
                     $(".help-block").remove();
                     $(".form-group").removeClass("has-error");
 
-                    if (data.uid=="")
-                    {
+                    if (data.uid == "") {
                         $("#uid").parent().addClass("has-error");
                         $("#uid").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
                         $("#uid").parent().append($("<span class=\"help-block\">不能为空</span>"));
                         return;
 
                     }
-                    if (data.usertype=="")
-                    {
+                    if (data.usertype == "") {
                         $("#usertype").parent().addClass("has-error");
                         $("#usertype").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
                         $("#usertype").parent().append($("<span class=\"help-block\">不能为空</span>"));
                         return;
 
                     }
-                    if (data.upass=="")
-                    {
+                    if (data.upass == "") {
                         $("#upass").parent().addClass("has-error");
                         $("#upass").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
                         $("#upass").parent().append($("<span class=\"help-block\">不能为空</span>"));
                         return;
 
                     }
-                    if (data.uname=="")
-                    {
+                    if (data.uname == "") {
                         $("#uname").parent().addClass("has-error");
                         $("#uname").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
                         $("#uname").parent().append($("<span class=\"help-block\">不能为空</span>"));

@@ -125,46 +125,10 @@
                 $(".callout-danger").show();
             }
         });
-        // console.log("print alot");
-        // $(".btn-danger").click(function (e) {
-        //     console.log(e);
-        //
-        //     $(".alert").hide();
-        //     var data = {
-        //         "uniqueToken": $.cookie("token"),
-        //         "uid": e.currentTarget.id
-        //     };
-        //     $.ajax({
-        //         // method: "POST",
-        //         type: "POST",
-        //         url: 'http://120.78.78.174:6233/admin/delUser',
-        //         // async: false, // 使用同步方式
-        //         // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
-        //         // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
-        //         // headers:{"Authorization":""},
-        //         data: JSON.stringify(data),
-        //         contentType: "application/json; charset=utf-8",
-        //         // dataType: "json",
-        //         success: function (d) {
-        //             if (d.msg == "OK") {
-        //                 $(".alert-success").show();
-        //                 $(".alert-success").text("删除成功");
-        //             } else {
-        //                 $(".alert-error").text(d.msg);
-        //                 $(".alert-error").show();
-        //             }
-        //         },// 注意不要在此行增加逗号,
-        //         error: function (e) {
-        //             $(".alert-error").text("服务器连接失败");
-        //             $(".alert-error").show();
-        //         }
-        //     })
-        // });
-        // console.log("print alot");
         $(".btn-success").click(function (e) {
 
             edited_userid = e.currentTarget.id;
-            $.get("admin/edituser.html",function (e) {
+            $.get("admin/edituser.html", function (e) {
                 // console.log(e);
                 $(".content-wrapper").html(e)
             });
@@ -192,7 +156,7 @@
                 // dataType: "json",
                 success: function (d) {
                     if (d.msg == "OK") {
-                        $.get("admin/showalluser.html",function (e) {
+                        $.get("admin/showalluser.html", function (e) {
                             // console.log(e);
                             $(".content-wrapper").html(e)
                         });
@@ -210,58 +174,49 @@
             })
         });
     });
-    // var data = {
-    //     "uniqueToken": $.cookie("token")
-    // };
-    // // console.log("print");
-    //
-    // var clickmodi = function (e) {
-    //
-    // };
 
 
 </script>
 <script>
 
 
-        $(".alert").hide();
-        var data = {
-            "uniqueToken": $.cookie("token"),
-            "uid": e.currentTarget.id
-        };
-        $.ajax({
-            // method: "POST",
-            type: "POST",
-            url: 'http://120.78.78.174:6233/admin/delCourse',
-            // async: false, // 使用同步方式
-            // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
-            // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
-            // headers:{"Authorization":""},
-            data: JSON.stringify(data),
-            contentType: "application/json; charset=utf-8",
-            // dataType: "json",
-            success: function (d) {
-                if (d.msg == "OK") {
-                    $(".alert-success").show();
-                    $(".alert-success").text("删除成功");
-                } else {
-                    $(".alert-error").text(d.msg);
-                    $(".alert-error").show();
-                }
-            },// 注意不要在此行增加逗号,
-            error: function (e) {
-                $(".alert-error").text("服务器连接失败");
+    $(".alert").hide();
+    var data = {
+        "uniqueToken": $.cookie("token"),
+        "uid": e.currentTarget.id
+    };
+    $.ajax({
+        // method: "POST",
+        type: "POST",
+        url: 'http://120.78.78.174:6233/admin/delCourse',
+        // async: false, // 使用同步方式
+        // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
+        // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
+        // headers:{"Authorization":""},
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        // dataType: "json",
+        success: function (d) {
+            if (d.msg == "OK") {
+                $(".alert-success").show();
+                $(".alert-success").text("删除成功");
+            } else {
+                $(".alert-error").text(d.msg);
                 $(".alert-error").show();
             }
-        })
+        },// 注意不要在此行增加逗号,
+        error: function (e) {
+            $(".alert-error").text("服务器连接失败");
+            $(".alert-error").show();
+        }
     });
     console.log("print alot");
     $(".btn-success").click(function (e) {
         var edited_userid = e.currentTarget.id;
-            $.get("admin/edituser.html",function (e) {
-                // console.log(e);
-                $(".content-wrapper").html(e)
-            });
+        $.get("admin/edituser.html", function (e) {
+            // console.log(e);
+            $(".content-wrapper").html(e)
+        });
     });
 
 

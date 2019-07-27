@@ -57,7 +57,6 @@
         </div>
 
 
-
         <!-- /.col-->
     </div>
     <!-- ./row -->
@@ -66,15 +65,14 @@
 
 <script>
     $(function () {
-        var auser=user[edited_userid];
+        var auser = user[edited_userid];
         $("#uid").val(edited_userid);
         // $("#upass").val(edited_userid);
         $("#uname").val(auser.uname);
-        $("option[value='"+auser.type+"']").prop("selected",true);
+        $("option[value='" + auser.type + "']").prop("selected", true);
         // console.log("something");
         console.log(auser);
         // console.log(edited_userid);
-
 
 
         console.log("outpustsomething");
@@ -87,22 +85,20 @@
                 "upass": $("#upass").val(),
                 "uname": $("#uname").val(),
             };
-            var da={};
-            da["uniqueToken"]=data["uniqueToken"];
+            var da = {};
+            da["uniqueToken"] = data["uniqueToken"];
             $(".control-label").remove();
             $(".help-block").remove();
             $(".form-group").removeClass("has-error");
 
-            if (data.uid=="")
-            {
+            if (data.uid == "") {
                 $("#uid").parent().addClass("has-error");
                 $("#uid").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
                 $("#uid").parent().append($("<span class=\"help-block\">不能为空</span>"));
                 return;
 
             }
-            if (data.usertype=="")
-            {
+            if (data.usertype == "") {
                 $("#usertype").parent().addClass("has-error");
                 $("#usertype").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
                 $("#usertype").parent().append($("<span class=\"help-block\">不能为空</span>"));
@@ -116,20 +112,19 @@
             //     $("#upass").parent().append($("<span class=\"help-block\">不能为空</span>"));
             //
             // }
-            if (data.uname=="")
-            {
+            if (data.uname == "") {
                 $("#uname").parent().addClass("has-error");
                 $("#uname").parent().prepend($("<label class=\"control-label\" for=\"inputError\"><i class=\"fa fa-bell-o\"></i>输入错误</label>"));
                 $("#uname").parent().append($("<span class=\"help-block\">不能为空</span>"));
                 return;
 
             }
-            if (data.uname!=auser.uname)
-                da["uname"]=data.uname;
-            if (data.usertype!=auser.usertype)
-                da["uname"]=data.uname;
-            if (data.uname!=auser.uname)
-                da["uname"]=data.uname;
+            if (data.uname != auser.uname)
+                da["uname"] = data.uname;
+            if (data.usertype != auser.usertype)
+                da["uname"] = data.uname;
+            if (data.uname != auser.uname)
+                da["uname"] = data.uname;
 
             console.log(data);
             $(".alert").hide();
@@ -184,12 +179,14 @@
                             $(".callout-danger").show();
                         }
                     });
-                })
-            })
-        </script>
-        <!-- /.col-->
-    </div>
-    <!-- ./row -->
+                }
+            });
+        })
+    });
+</script>
+<!-- /.col-->
+</div>
+<!-- ./row -->
 </section>
 
 </script>
