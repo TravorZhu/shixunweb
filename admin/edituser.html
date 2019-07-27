@@ -56,10 +56,13 @@
             <!-- /.box -->
         </div>
 
+
+
         <!-- /.col-->
     </div>
     <!-- ./row -->
 </section>
+
 
 <script>
     $(function () {
@@ -151,12 +154,43 @@
                         $(".alert-error").text(d.msg);
                         $(".alert-error").show();
                     }
-                },// 注意不要在此行增加逗号,
-                error: function (e) {
-                    $(".alert-error").text("服务器访问出错");
-                    $(".callout-danger").show();
-                }
-            });
-        })
-    })
+
+                    console.log(data);
+                    $(".alert").hide();
+                    $.ajax({
+                        // method: "POST",
+                        type: "POST",
+                        url: 'http://120.78.78.174:6233/admin/updateUser',
+                        // async: false, // 使用同步方式
+                        // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
+                        // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
+                        // headers:{"Authorization":""},
+                        data: JSON.stringify(data),
+                        contentType: "application/json; charset=utf-8",
+                        // dataType: "json",
+                        success: function (d) {
+                            console.log(d);
+                            console.log(d.msg);
+                            console.log(d);
+                            if (d.msg == "OK") {
+                                $(".alert-success").show();
+                            } else {
+                                $(".alert-error").text(d.msg);
+                                $(".alert-error").show();
+                            }
+                        },// 注意不要在此行增加逗号,
+                        error: function (e) {
+                            $(".alert-error").text("服务器访问出错");
+                            $(".callout-danger").show();
+                        }
+                    });
+                })
+            })
+        </script>
+        <!-- /.col-->
+    </div>
+    <!-- ./row -->
+</section>
+
 </script>
+
