@@ -1,0 +1,224 @@
+<section class="content-header">
+    <h1>
+        删除/修改课程
+        <small>Advanced form element</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>主页</a></li>
+        <li><a href="#">用户操作</a></li>
+        <li class="active">删除修改用户</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">所有用户</h3>
+                    <div class="box-tools">
+                        <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="alert alert-success" hidden="hidden">添加成功</div>
+                    <div class="alert alert-error" hidden="hidden"></div>
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>用户类型</th>
+                            <th>用户名</th>
+                            <th colspan="2">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+
+                        </tbody>
+                        <tfoot>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>用户类型</th>
+                            <th>用户名</th>
+                            <th colspan="2">操作</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li><a href="#">&laquo;</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+</section>
+<script>
+    $(function () {
+        console.log("print alot");
+
+
+        // console.log("print alot");
+        var data = {
+            "uniqueToken": $.cookie("token")
+        };
+        // console.log("print");
+        $.ajax({
+            // method: "POST",
+            type: "POST",
+            url: 'http://120.78.78.174:6233/admin/getAllUser',
+            async: false, // 使用同步方式
+            // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
+            // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
+            // headers:{"Authorization":""},
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            // dataType: "json",
+            success: function (d) {
+                if (d.msg == "OK") {
+                    var user = new Array();
+                    d.data.forEach(function (item, index) {
+                        let a = {usertype: item.usertype, uname: item.uname};
+
+
+                        user[item.uid] = a;
+                        // console.log(item.uid + "---" + index);
+                        $("tbody").append($("<tr>\n" +
+                            "                            <td>" + item.uid + "</td>\n" +
+                            "                            <td>" + item.usertype + "</td>\n" +
+                            "                            <td>" + item.uname + "</td>\n" +
+                            "                            <td>\n" +
+                            "                                <button class=\"btn btn-success\" id='" + item.uid + "'>修改</button>\n" +
+                            "                            </td>\n" +
+                            "                            <td>\n" +
+                            "                                <button class=\"btn btn-danger\"  id='" + item.uid + "'>删除</button>\n" +
+                            "                            </td>\n" +
+                            "                        </tr>"))
+                    })
+                    console.log(user)
+
+                } else {
+                    $(".callout-danger").text(d.msg);
+                    $(".callout-danger").show();
+                }
+            },// 注意不要在此行增加逗号,
+            error: function (e) {
+                $(".callout-danger").show();
+            }
+        });
+        console.log($(".btn-danger"));
+        // $("button[class=btn-success]")
+        $(".btn-danger").click(function (e) {
+            console.log(e);
+
+            $(".alert").hide();
+            var data = {
+                "uniqueToken": $.cookie("token"),
+                "uid": e.currentTarget.id
+            };
+            $.ajax({
+                // method: "POST",
+                type: "POST",
+                url: 'http://120.78.78.174:6233/admin/delUser',
+                // async: false, // 使用同步方式
+                // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
+                // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
+                // headers:{"Authorization":""},
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                // dataType: "json",
+                success: function (d) {
+                    if (d.msg == "OK") {
+                        $(".alert-success").show();
+                        $(".alert-success").text("删除成功");
+                    } else {
+                        $(".alert-error").text(d.msg);
+                        $(".alert-error").show();
+                    }
+                },// 注意不要在此行增加逗号,
+                error: function (e) {
+                    $(".alert-error").text("服务器连接失败");
+                    $(".alert-error").show();
+                }
+            })
+        });
+    });
+    var data = {
+        "uniqueToken": $.cookie("token")
+    };
+    console.log("print");
+
+    var clickmodi = function (e) {
+
+    };
+
+
+</script>
+<script>
+    console.log("print alot");
+    $(".btn-danger").click(function (e) {
+        console.log(e);
+
+        $(".alert").hide();
+        var data = {
+            "uniqueToken": $.cookie("token"),
+            "uid": e.currentTarget.id
+        };
+        $.ajax({
+            // method: "POST",
+            type: "POST",
+            url: 'http://120.78.78.174:6233/admin/delUser',
+            // async: false, // 使用同步方式
+            // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
+            // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
+            // headers:{"Authorization":""},
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            // dataType: "json",
+            success: function (d) {
+                if (d.msg == "OK") {
+                    $(".alert-success").show();
+                    $(".alert-success").text("删除成功");
+                } else {
+                    $(".alert-error").text(d.msg);
+                    $(".alert-error").show();
+                }
+            },// 注意不要在此行增加逗号,
+            error: function (e) {
+                $(".alert-error").text("服务器连接失败");
+                $(".alert-error").show();
+            }
+        })
+    });
+    console.log("print alot");
+    $(".btn-success").click(function (e) {
+
+        var edited_userid = e.currentTarget.id;
+        $.get("admin/edituser.html",function (e) {
+            // console.log(e);
+            $(".content-wrapper").html(e)
+        });
+    });
+
+</script>
+
+<script>
+    console.log(2);
+    console.log($(".btn-danger"));
+</script>
