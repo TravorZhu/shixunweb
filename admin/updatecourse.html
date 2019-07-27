@@ -1,6 +1,8 @@
 <section class="content-header">
     <h1>
+
         添加课程
+
         <!--        <small>Advanced form element</small>-->
     </h1>
     <ol class="breadcrumb">
@@ -21,6 +23,7 @@
                     <div class="alert alert-success" hidden="hidden">修改成功</div>
                     <div class="alert alert-error" hidden="hidden"></div>
                     <form role="form">
+
 
 
                         <!--                        课程名。老师id。课程id。上课时间。课程信息-->
@@ -44,10 +47,12 @@
                         <div class="form-group" id="cinfo-form">
                             <label>课程信息</label>
                             <input id="cinfo" type="text" class="form-control" placeholder="请输入...">
+
                         </div>
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">提交</button>
                         </div>
+
 
                     </form>
                 </div>
@@ -64,15 +69,18 @@
                 $("form").submit(function () {
                     var data = {
                         "uniqueToken": $.cookie("token"),
+
                         "cid": $("#cid").val(),
                         "cname":$("#cname").val(),
                         "tid":$("#tid").val(),
                         "ctime":$("#ctime").val(),
                         "info":$("#cinfo").val(),
+
                     };
                     $(".control-label").remove();
                     $(".help-block").remove();
                     $(".form-group").removeClass("has-error");
+
 
                     if (data.cid=="")
                     {
@@ -108,12 +116,15 @@
                         $("#cinfo").parent().append($("<span class=\"help-block\">不能为空</span>"));
                     }
 
+
                     console.log(data);
                     $(".alert").hide();
                     $.ajax({
                         // method: "POST",
                         type: "POST",
+
                         url: 'http://120.78.78.174:6233/admin/updateCourse',
+
                         // async: false, // 使用同步方式
                         // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
                         // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
