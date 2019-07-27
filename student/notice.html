@@ -1,0 +1,92 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        公告栏
+    </h1>
+    <ol class="breadcrumb">
+
+        <li class="active">公告栏</li>
+    </ol>
+</section>
+<section class="content">
+
+</section>
+<script>
+    Date.prototype.format = function(fmt) {
+        var o = {
+            "M+" : this.getMonth()+1,                 //月份
+            "d+" : this.getDate(),                    //日
+            "h+" : this.getHours(),                   //小时
+            "m+" : this.getMinutes(),                 //分
+            "s+" : this.getSeconds(),                 //秒
+            "q+" : Math.floor((this.getMonth()+3)/3), //季度
+            "S"  : this.getMilliseconds()             //毫秒
+        };
+        if(/(y+)/.test(fmt)) {
+            fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+        }
+        for(var k in o) {
+            if(new RegExp("("+ k +")").test(fmt)){
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+            }
+        }
+        return fmt;
+    };
+    var data = {
+        "uniqueToken": $.cookie("token")
+    };
+    // console.log("print");
+    $.ajax({
+        // method: "POST",
+        type: "POST",
+        url: 'http://120.78.78.174:6233/stu/showNotice',
+        async: false, // 使用同步方式
+        // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
+        // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
+        // headers:{"Authorization":""},
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        // dataType: "json",
+        success: function (d) {
+            console.log(d);
+            if (d.status == 200) {
+                // var user = new Array();
+                d.data.forEach(function (item, index) {
+                    console.log(item);
+                    console.log("23333");
+                    //
+                    // user[item.uid] = a;
+                    // console.log(item.uid + "---" + index);
+                    $(".content").append($("<div class=\"col-md-6\">\n" +
+                        "            <!-- Box Comment -->\n" +
+                        "            <div class=\"box box-widget\">\n" +
+                        "                <div class=\"box-header with-border\">\n" +
+                        "                    <div class=\"user-block\">\n" +
+                        "                        <span class=\"username\">"+item.ntitle+"</span>\n" +
+                        "                        <span class=\"description\">"+item.cname+" - "+item.uname+"</span>\n" +
+                        "                    </div>\n" +
+                        "                    <!-- /.user-block -->\n" +
+                        "                    <!-- /.box-tools -->\n" +
+                        "                </div>\n" +
+                        "                <!-- /.box-header -->\n" +
+                        "                <div class=\"box-body\">\n" +
+                                           item.content.replace(/\n/g,"<br\>") +
+                        "                    <br /><span class=\"pull-right text-muted\">"+(new Date(item.ntime)).format("yyyy-MM-d h:m:s.S")+"</span>\n" +
+                        "                </div>\n" +
+                        "                <!-- /.box-body -->\n" +
+                        "            </div>\n" +
+                        "            <!-- /.box -->\n" +
+                        "        </div>\n" +
+                        "        <!-- /.col -->"))
+                })
+
+            } else {
+                $(".callout-danger").text(d.msg);
+                $(".callout-danger").show();
+            }
+        },// 注意不要在此行增加逗号,
+        error: function (e) {
+            $(".callout-danger").show();
+        }
+    });
+</script>
