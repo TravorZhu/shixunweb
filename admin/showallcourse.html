@@ -93,9 +93,9 @@
             contentType: "application/json; charset=utf-8",
             // dataType: "json",
             success: function (d) {
-                if (d.msg == "OK") {
+                if (d.status== 200) {
                     var course = new Array();
-                    d.data.forEach(function (index,item) {
+                    d.data.forEach(function (item,index) {
                         let a = {cid:item.cid,cname: item.cname, tid: item.tid,ctime: item.ctime,info:item.info};
                         $("tbody").append($("<tr>\n" +
                             "                            <td>" + item.cid + "</td>\n" +
@@ -210,7 +210,7 @@
     $(".btn-success").click(function (e) {
 
         var edited_userid = e.currentTarget.id;
-        $.get("admin/updatecourse.html",function (e) {
+        $.get("updatecourse.html",function (e) {
             // console.log(e);
             $(".content-wrapper").html(e)
         });

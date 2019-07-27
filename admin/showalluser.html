@@ -183,7 +183,7 @@
         $.ajax({
             // method: "POST",
             type: "POST",
-            url: 'http://120.78.78.174:6233/admin/delCourse',
+            url: 'http://120.78.78.174:6233/admin/delUser',
             // async: false, // 使用同步方式
             // 1 需要使用JSON.stringify 否则格式为 a=2&b=3&now=14...
             // 2 需要强制类型转换，否则格式为 {"a":"2","b":"3"}
@@ -209,7 +209,7 @@
     console.log("print alot");
     $(".btn-success").click(function (e) {
         var edited_userid = e.currentTarget.id;
-            $.get("admin/edituser.html",function (e) {
+            $.get("edituser.html",function (e) {
                 // console.log(e);
                 $(".content-wrapper").html(e)
             });

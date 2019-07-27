@@ -126,6 +126,9 @@
                             } else {
                                 $(".alert-error").text(d.msg);
                                 $(".alert-error").show();
+                                $.get("showallcourse.html",function (e) {
+                                    console.log(e);
+                                })
                             }
                         },// 注意不要在此行增加逗号,
                         error: function (e) {
